@@ -1,0 +1,49 @@
+0.  What is pneumonoultramicroscopicsilicovolcanoconiosis?
+        It is a lung disease. It is also the longest word of the English dictionary.
+    
+1.  According to its man page, what does getrusage do?
+        It returns resource usage measures.
+        
+2.  Per that same man page, how many members are in a variable of type struct
+    rusage ?
+        16
+    
+3.  Why do you think we pass before and after by reference (instead of by value) to
+    calculate , even though we’re not changing their contents?
+        Because, as defined at the end of the program, calculate takes for arguments 
+        two pointers to structs rusage (struct rusage* a).
+        
+4.  Explain as precisely as possible, in a paragraph or more, how main goes about reading
+    words from a file. 
+    In other words, convince us that you indeed understand how that function’s for loop works.
+        First, main() prepares the benchmarks to measure the resource usage and loads the dictionary.
+        Then it opens the text. It reads character by character and appends them to a string until it
+        encounters a symbol different from a letter or an apostrophe. It then creates a new string.
+        It ignores if the string is too long or if it encounters a number.
+        When a word is finished, it adds the symbol "\0" at the end to signify it.
+        
+5.  Why do you think we used fgetc to read each word’s characters one at a time rather
+    than use fscanf with a format string like "%s" to read whole words at a time? 
+    Put another way, what problems might arise by relying on fscanf alone?
+        fscanf gives less flexibility than fgetc. For instance, with fscanf, we could not have determined
+        that a word is not valid if it contains numerical characters, or also if the word is too long.
+        
+6.  Why do you think we declared the parameters for check and load as const ?
+        They are declared as const in order to ensure that these parameters are not modified along the program.
+    
+7.  What data structure(s) did you use to implement your spell-checker? Be sure not to leave your answer 
+    at just "hash table," "trie," or the like. Expound on what’s inside each of your "nodes."
+        I implemented a trie. Each node of this trie is composed of the numbers 0 to 26 which correspond to the
+        letters of the alphabet (a = 0 ... z = 25) and the apostrophe. Each of this number is linked with a pointer
+        to another node. Each node is also composed of a bool, is_word, which is set to true if the corresponding
+        node is the end of the word.
+        
+8.  How slow was your code the first time you got it working correctly?
+        It took the same time as the one of the staff the first time I got it working correctly.
+        
+9.  What kinds of changes, if any, did you make to your code in order to improve its performance?
+        I made some changes regarding memory leaks, using valgrind.
+        
+10. Do you feel that your code has any bottlenecks that you were not able to chip away at?
+        Valgrind says that there are still errors even if there are no memory leaks left. I don't get where do
+        these errors come from.
